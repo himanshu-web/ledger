@@ -1,0 +1,174 @@
+<?php
+header_remove("Server");
+header_remove("X-Powered-By");
+//header_unset("X-Powered-By");
+header('x-powered-by:');
+?>
+<?php
+ include("header.php"); intelligent
+ include("connection.php"); 
+ include("function.php");
+ header("X-Frame-Options: SAMEORIGIN");
+ ?>
+
+          <!-- end of intelligent-header -->
+                <!-- end of header -->
+
+            <!-- <div class="intelligent-header-space"></div>  -->
+        <section class="slider-section" id="flip">
+            <div class="text-block marquee_first" id="panel">
+                <h4><i class="fa fa-times" aria-hidden="true" ></i>&nbsp;Notice:</h4>
+                <marquee direction="up" onmouseover="this.stop();" onmouseleave="this.start();">
+                    <?php $first_noti = SelectLimit('first_notification',5); 
+                        foreach($first_noti as $first_notis){ ?>
+                   <a href="<?= $first_notis['notification_link']; ?>"><p><?= substr($first_notis['notification'],0,100).'..'; ?></p></a><hr><?php } ?>
+                </marquee>
+            </div>
+            <div class="primary-slider owl-carousel">
+                    <?php $banner = SelectAll('home_banner'); 
+                        foreach($banner as $banners){
+                    ?>
+                <div class="slide-single text-left">
+                    <img src="<?= $banners['banner']; ?>" alt="Template Image" class="slider-image">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div> <?php } ?>
+
+                
+        </section> <!-- end of slider-section -->
+
+        <!-- News horizontal marquee -->          
+
+         <!-- Vertical marquee div -->
+        <section class="mar">
+            <?php $s_noti = SelectLimit('first_notification',1); 
+                        foreach($s_noti as $s_notis){ ?>
+            <marquee onmouseover="this.stop();" onmouseleave="this.start();" scrollamount="12">
+               <span><a href="<?= $s_notis['notification_link']; ?>"><?= $s_notis['notification']; ?></a></span>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </marquee>
+        <?php } ?>
+        </section>
+        <!-- start of main -->
+        <main class="whole-wrapper">
+            <section class="about mb0 center-mobile section2">
+                <div class="container">
+                    <span class="heading_span" style=""> 
+                        <!-- Welcome to Department of Economics & Statistics -->
+                    </span>
+                    <span class="news_span">
+                      News & Events
+                    </span>
+                    <div class="row">
+                        <div class="col-md-4">
+                        <?php $admin = SelectAll('home_admi');
+                            foreach ($admin as $admins) { ?>
+                            <div class="leader_image">
+                                <img src="<?= $admins['image']; ?>" alt="Avatar"style="" >
+                                <div class="leader_detail">
+                                    <h4><?= $admins['name']; ?></h4>  
+                                    <p><?= $admins['post']; ?></p> 
+                                </div>
+                            </div><?php } ?>
+                        </div>
+                        <div class="col-md-4 index_about" id="skip_about" >
+                            <h3>About Us-</h3>
+                            <p>
+                                <?php
+                               $about_sql = mysqli_query($con,"SELECT about_dep FROM `about_us`");
+                               $about_discription = mysqli_fetch_array($about_sql);
+                               echo $about_discription['about_dep'];
+                                ?>
+                            </p>
+                            <a href="about_us.php"style="">READ MORE</a>
+                        </div>
+
+                        <div class="col-md-4 front-marque">
+                            <marquee onmouseover="this.stop();" onmouseleave="this.start();" direction="up" height="300">
+                                <ul>
+                                    <?php $news = SelectLimit('news',5); 
+                                    foreach($news as $newss){ ?>
+                                    <li>
+                                        <?= substr($newss['news_title'],0,100).'...'; ?>
+                                        <a href="<?= $newss['news_link']; ?>">Click Here</a>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </marquee>
+                        </div>
+                    </div>
+                        
+                </div> <!-- end of container -->
+            </section><!-- end of about  -->
+            <section class="services bgc-offset pb-half section3" >
+                <div class="container">
+                    <div class="row">
+
+                    <?php $home_link = SelectAll('home_link');
+                        foreach($home_link as $home_links){
+                        ?>
+                        <div class="col-xs-12 col-sm-6 col-md-4 guide_to_service">
+                            <div class="info-item">
+                               <hr>
+                                <div class="item-name">
+                                    <h3 class="secondary-title"><a href="<?= $home_links['title_link'] ?>"><?= $home_links['title'] ?></a></h3>
+                                </div>
+                                <div class="info-content">
+                                    //<?= $home_links['discription']; ?>
+                                    <p> </p>
+                                </div>
+                                
+                            </div>
+                        </div><?php } ?>
+                        
+                    </div> <!-- end of row -->
+                </div>
+                    
+            </section><!-- end services   -->
+
+            <!-- <section class="recent-project">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">     
+                        </div>
+                    </div> 
+                </div> 
+            </section> -->
+            
+            <section class="client-section mb-full my-section">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-xs-12 home_img_galary">
+                            <div class="client-carousel">
+                                <?php $slider = SelectLimit('home_slider',10); 
+                                    foreach($slider as $sliders){
+                                ?>
+                                <div class="item-brand">
+                                    <img src="<?= $sliders['image'] ?>" alt="Client Logo">
+                                </div><?php } ?>
+                            </div>
+                        </div>
+                    </div> <!-- end of row -->
+                </div> <!-- end of container -->
+            </section> <!-- end of client-section -->
+
+            <section class="my-section department-link">
+                <div class="container">
+                    <?php $site_logo = SelectAll('home_gov_link');
+                        foreach($site_logo as $site_logos){
+                     ?>
+                    <a target="_blank" href="<?= $site_logos['image_link']; ?>">
+                    <img  src="<?= $site_logos['image']; ?>"></a><?php } ?>
+                   
+                </div>
+            </section>
+        </main>
+         <!-- end of main -->
+
+<?php include("footer.php"); ?>
